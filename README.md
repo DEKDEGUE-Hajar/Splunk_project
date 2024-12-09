@@ -43,3 +43,46 @@ Before analyzing DNS logs in Splunk, ensure the following:
 
   ```spl
   index=dns_logs_index sourcetype=dns
+
+## Steps to Analyze DNS Log Files in Splunk SIEM
+
+### 1. Search for DNS Events
+- Open the Splunk interface and navigate to the search bar.
+- Enter the following search query to retrieve DNS events:
+  ```spl
+  index=dns_logs_index sourcetype=dns
+### 2. Analyze Top DNS Queries by Frequency
+  - Find the most frequently queried domains:
+   ```spl
+   index=dns_logs_index sourcetype=dns | stats count by fqdn | sort - count | head 10
+```
+### 3. Analyze Top Source IPs Making DNS Queries
+  - Find the most frequently queried domains:
+   ```spl
+   index=dns_logs_index sourcetype=dns | stats count by src_ip | sort - count | head 10
+```
+### 4. Analyze Top DNS Queries by Frequency
+  - Find the most frequently queried domains:
+   ```spl
+   index=dns_logs_index sourcetype=dns | stats count by fqdn | sort - count | head 10
+```
+### 5. Monitor DNS Traffic by Protocol
+  - Find the most frequently queried domains:
+   ```spl
+   index=dns_logs_index sourcetype=dns | stats count by protocol
+```
+### 6. Identify Large DNS Requests (Potential DNS Tunneling)
+- Check for unusually large DNS requests that might indicate data exfiltration via DNS tunneling:
+   ```spl
+   index=dns_logs_index sourcetype=dns | eval fqdn_length = len(fqdn) | where fqdn_length > 50 | stats count by fqdn, src_ip
+```
+### 7. Tracking DNS Activity from Specific Hosts
+- Track DNS requests from specific IP addresses, like critical servers or suspected devices, to monitor abnormal activity:
+   ```spl
+   index=dns_logs_index sourcetype=dns src_ip="192.168.202.83" | stats count by fqdn, dst_ip
+```
+### 8. DNS Query Size Analysis
+- You can analyze the request_size to identify unusually large or small DNS queries, which might indicate data exfiltration (DNS tunneling) or attacks.
+   ```spl
+   index=dns_logs_index sourcetype=dns | stats avg(request_size), max(request_size), min(request_size) by src_ip
+```
