@@ -43,6 +43,21 @@ Before analyzing DNS logs in Splunk, ensure the following:
 
   ```spl
   index=dns_logs_index sourcetype=dns
+## Field Extraction and Renaming
+
+Before proceeding with the analysis, I extracted and renamed the following fields from the raw DNS log data for easier analysis:
+
+- **timestamp**: The timestamp of the DNS log entry.
+- **src_ip**: The source IP address making the DNS request.
+- **src_port**: The source port used in the request.
+- **dst_ip**: The destination IP address of the DNS server.
+- **dst_port**: The destination port used by the DNS server (usually 53).
+- **protocol**: The protocol used in the DNS query, typically `udp`.
+- **request_size**: The size of the DNS request in bytes.
+- **fqdn**: The Fully Qualified Domain Name being queried.
+- **record**: The DNS record type (e.g., A, PTR, NXDOMAIN).
+
+These field extractions allow for more efficient analysis of DNS log events.
 
 ## Steps to Analyze DNS Log Files in Splunk SIEM
 
@@ -60,29 +75,29 @@ Before analyzing DNS logs in Splunk, ensure the following:
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by src_ip | sort - count | head 10
-```
+   ```
 ### 4. Analyze Top DNS Queries by Frequency
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by fqdn | sort - count | head 10
-```
+   ```
 ### 5. Monitor DNS Traffic by Protocol
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by protocol
-```
+   ```
 ### 6. Identify Large DNS Requests (Potential DNS Tunneling)
 - Check for unusually large DNS requests that might indicate data exfiltration via DNS tunneling:
    ```spl
    index=dns_logs_index sourcetype=dns | eval fqdn_length = len(fqdn) | where fqdn_length > 50 | stats count by fqdn, src_ip
-```
+  ```
 ### 7. Tracking DNS Activity from Specific Hosts
 - Track DNS requests from specific IP addresses, like critical servers or suspected devices, to monitor abnormal activity:
    ```spl
    index=dns_logs_index sourcetype=dns src_ip="192.168.202.83" | stats count by fqdn, dst_ip
-```
+   ```
 ### 8. DNS Query Size Analysis
 - You can analyze the request_size to identify unusually large or small DNS queries, which might indicate data exfiltration (DNS tunneling) or attacks.
    ```spl
    index=dns_logs_index sourcetype=dns | stats avg(request_size), max(request_size), min(request_size) by src_ip
-```
+   ```
