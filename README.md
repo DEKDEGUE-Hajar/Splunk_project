@@ -66,36 +66,55 @@ These field extractions allow for more efficient analysis of DNS log events.
 - Enter the following search query to retrieve DNS events:
   ```spl
   index=dns_logs_index sourcetype=dns
+  ```
+  ![1-req](https://github.com/user-attachments/assets/09bddbae-1b8a-462a-91cd-5027f3757be2)
+
 ### 2. Analyze Top DNS Queries by Frequency
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by fqdn | sort - count | head 10
-```
+   ```
+![2-req](https://github.com/user-attachments/assets/8bb0a921-9dd7-43a0-b8f5-acee228bda06)
+
+![2-vis](https://github.com/user-attachments/assets/3797dd42-9ab9-47b8-8fe2-64f0b19aa71a)
+
 ### 3. Analyze Top Source IPs Making DNS Queries
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by src_ip | sort - count | head 10
    ```
+![3-req](https://github.com/user-attachments/assets/ccef2942-9512-4340-bcc2-99298b6c324d)
+![3-vis](https://github.com/user-attachments/assets/5a6969d0-5d4b-4135-a990-b7df695f8b4b)
+
 ### 4. Monitor DNS Traffic by Protocol
   - Find the most frequently queried domains:
    ```spl
    index=dns_logs_index sourcetype=dns | stats count by protocol
    ```
+![4-req](https://github.com/user-attachments/assets/9ec3c614-7d62-4cfd-8162-74a1855a08b3)
+![4-vis](https://github.com/user-attachments/assets/abc5c5f8-856d-4eb5-975f-3c557a7c85b9)
+
 ### 5. Identify Large DNS Requests (Potential DNS Tunneling)
 - Check for unusually large DNS requests that might indicate data exfiltration via DNS tunneling:
    ```spl
    index=dns_logs_index sourcetype=dns | eval fqdn_length = len(fqdn) | where fqdn_length > 50 | stats count by fqdn, src_ip
   ```
+![5-req](https://github.com/user-attachments/assets/5815ef97-daea-4ce9-a9ef-320d4e7cd9c1)
+
 ### 6. Tracking DNS Activity from Specific Hosts
 - Track DNS requests from specific IP addresses, like critical servers or suspected devices, to monitor abnormal activity:
    ```spl
    index=dns_logs_index sourcetype=dns src_ip="192.168.202.83" | stats count by fqdn, dst_ip
    ```
+   ![6-req](https://github.com/user-attachments/assets/8521dd3c-9ba2-4f2a-89bf-c07493e638cb)
+
 ### 7. DNS Query Size Analysis
 - You can analyze the request_size to identify unusually large or small DNS queries, which might indicate data exfiltration (DNS tunneling) or attacks.
    ```spl
    index=dns_logs_index sourcetype=dns | stats avg(request_size), max(request_size), min(request_size) by src_ip
    ```
+   ![7-req](https://github.com/user-attachments/assets/72f9aff8-0422-45b5-b717-c543eca4b877)
+
 ## Conclusion
 Analyzing DNS log files using Splunk SIEM enables security professionals to detect and respond to potential security incidents effectively. By understanding DNS activity and identifying anomalies, organizations can enhance their overall security posture and protect against various cyber threats.
 
