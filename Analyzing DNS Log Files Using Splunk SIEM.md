@@ -19,10 +19,12 @@ Before analyzing DNS logs in Splunk, ensure the following:
 - Log in to the Splunk web interface.
 - Navigate to **Settings** > **Add Data**.
 - Select **Upload** as the data input method.
+  
   ![2](https://github.com/user-attachments/assets/5e19624c-e1f0-4598-a91e-5e0c99a22e1f)
 
 ### 3. Choose File
 - Click on **Select File** and choose the sample DNS log file you prepared earlier.
+  
 ![3](https://github.com/user-attachments/assets/294ad308-a092-46f5-98a4-6fe75ae19da5)
 
 ### 4. Set Source Type
@@ -44,7 +46,7 @@ Before analyzing DNS logs in Splunk, ensure the following:
 - Review the settings one final time to ensure accuracy.
 - Click **Submit** to upload the sample DNS log file to Splunk.
   
-![7](https://github.com/user-attachments/assets/b74267d0-e8ee-4a7e-9b43-4ba4ad0b1bab)
+  ![7](https://github.com/user-attachments/assets/b74267d0-e8ee-4a7e-9b43-4ba4ad0b1bab)
 
 ### 7. Verify Upload
 - After uploading, navigate to the search bar in the Splunk interface.
