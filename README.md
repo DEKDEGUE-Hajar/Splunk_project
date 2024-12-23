@@ -131,6 +131,15 @@ These field extractions allow for more efficient analysis of DNS log events.
    ```
    ![7-req](https://github.com/user-attachments/assets/72f9aff8-0422-45b5-b717-c543eca4b877)
 
+  ### 8. DNS Query Load Per Server
+- If you have multiple DNS servers, this query will help you see the load on each DNS server over time.
+   ```spl
+   index=dns_logs | timechart span=1h count by dst_ip
+   ```
+<img width="946" alt="image" src="https://github.com/user-attachments/assets/413c42da-1b40-4510-9c43-3cc717caf86f" />
+<img width="949" alt="image" src="https://github.com/user-attachments/assets/15334768-41ec-4e7f-8bb3-1995c55ea810" />
+
+
 ## Conclusion
 Analyzing DNS log files using Splunk SIEM enables security professionals to detect and respond to potential security incidents effectively. By understanding DNS activity and identifying anomalies, organizations can enhance their overall security posture and protect against various cyber threats.
 
