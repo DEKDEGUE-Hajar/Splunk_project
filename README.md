@@ -29,15 +29,22 @@ Before analyzing DNS logs in Splunk, ensure the following:
 - In the **Set Source Type** section, specify the source type for the uploaded log file.
 - Choose the appropriate source type for DNS logs (`dns`).
 
-### 5. Review Settings
-- Review other settings such as index, host, and sourcetype.
+  ![5](https://github.com/user-attachments/assets/a671ae98-8822-43f3-8fa2-cace90150483)
+
+
+### 5. set the index
 - Set the **index** to `dns_logs_index` to store the DNS log data in a dedicated index for better organization.
 - Ensure the settings are configured correctly to match the sample DNS log file.
+
+  ![6](https://github.com/user-attachments/assets/3d047463-16d6-4fe9-9858-c4af30e0384d)
+
 
 ### 6. Click Upload
 - Once all settings are configured, click on the **Review** button.
 - Review the settings one final time to ensure accuracy.
 - Click **Submit** to upload the sample DNS log file to Splunk.
+  
+![7](https://github.com/user-attachments/assets/b74267d0-e8ee-4a7e-9b43-4ba4ad0b1bab)
 
 ### 7. Verify Upload
 - After uploading, navigate to the search bar in the Splunk interface.
@@ -45,7 +52,10 @@ Before analyzing DNS logs in Splunk, ensure the following:
 
   ```spl
   index=dns_logs_index sourcetype=dns
-## Field Extraction and Renaming
+
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/663de3df-d5d5-469a-937a-3df1d482e558" />
+
+### 8. Field Extraction and Renaming
 
 Before proceeding with the analysis, I extracted and renamed the following fields from the raw DNS log data for easier analysis:
 
@@ -59,7 +69,11 @@ Before proceeding with the analysis, I extracted and renamed the following field
 - **fqdn**: The Fully Qualified Domain Name being queried.
 - **record**: The DNS record type (e.g., A, PTR, NXDOMAIN).
 
+![9](https://github.com/user-attachments/assets/223accec-ff5c-45eb-ab42-75dc2d4921ea)
+
 These field extractions allow for more efficient analysis of DNS log events.
+
+![10](https://github.com/user-attachments/assets/43617ca7-df84-4aa2-a8b1-72a13bd818f7)
 
 ## Steps to Analyze DNS Log Files in Splunk SIEM
 
