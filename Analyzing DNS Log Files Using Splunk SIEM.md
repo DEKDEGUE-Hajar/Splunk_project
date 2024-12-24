@@ -138,7 +138,7 @@ These field extractions allow for more efficient analysis of DNS log events.
    ```spl
    index=dns_logs | timechart span=1h count by dst_ip
    ```
-<img width="946" alt="image" src="https://github.com/user-attachments/assets/413c42da-1b40-4510-9c43-3cc717caf86f" />
+<img width="952" alt="image" src="https://github.com/user-attachments/assets/e74e4a48-350c-404c-a2d5-e4c41a49c150" />
 <img width="949" alt="image" src="https://github.com/user-attachments/assets/15334768-41ec-4e7f-8bb3-1995c55ea810" />
 
 
