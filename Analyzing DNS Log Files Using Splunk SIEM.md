@@ -139,7 +139,7 @@ These field extractions allow for more efficient analysis of DNS log events.
    index=dns_logs | timechart span=1h count by dst_ip
    ```
 <img width="952" alt="image" src="https://github.com/user-attachments/assets/e74e4a48-350c-404c-a2d5-e4c41a49c150" />
-<img width="949" alt="image" src="https://github.com/user-attachments/assets/15334768-41ec-4e7f-8bb3-1995c55ea810" />
+<img width="952" alt="image" src="https://github.com/user-attachments/assets/289a48f9-ae81-4397-bf98-82457819434d" />
 
 
 ## Conclusion
